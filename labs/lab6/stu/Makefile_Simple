@@ -1,0 +1,8 @@
+#TODO
+make Makefile_Simple: compileme.c
+	gcc compileme.c -o compileme
+
+clean: compileme
+	rm -f compileme
+
+
