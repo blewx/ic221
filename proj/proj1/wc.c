@@ -19,12 +19,14 @@ int main(int argc, char *argv[]){
   int total_chars = 0;
   int total_lines = 0;
   int total_words = 0;
+  int total_files = 0;
   FILE* fp = stdin; // file pointer fp that will be used to point at different files
                     // Is initially pointed at stdin so it deals with the case
                     // the user doesn't enter in any files
   for(int i = 1; i < argc || (argc == 1 && i == 1) ; i++){
     if ( argc <= 1 || argv[i][0] == '+'){
       fp = stdin;
+      total_files++;
     }
     else if(argv[i][0] == '-') {
       if(argv[i][1] == 'l'){
@@ -51,6 +53,7 @@ int main(int argc, char *argv[]){
       }
       else{
       fp = fopen(argv[i],"r");
+      total_files++;
       }
     }
     // if it is a bad file skip the rest of the code and read the next file
@@ -102,22 +105,23 @@ int main(int argc, char *argv[]){
 
   }
   
-  //Print the total words and chars
-  printf("total ");      
-  if(only_one){
-    printf("%d %d %d", total_lines, total_words, total_chars);
+  if(total_files >= 2){
+    //Print the total words and chars
+    printf("total ");      
+    if(only_one){
+      printf("%d %d %d", total_lines, total_words, total_chars);
+    }
+    if(l_selected){
+      printf("%d ", total_lines);
+    }
+    if(w_selected){
+      printf("%d ", total_words);
+    }
+    if(c_selected){
+      printf("%d ", total_chars);
+    }
+    printf("\n"); 
   }
-  if(l_selected){
-    printf("%d ", total_lines);
-  }
-  if(w_selected){
-    printf("%d ", total_words);
-  }
-  if(c_selected){
-    printf("%d ", total_chars);
-  }
-  printf("\n"); 
-
 
   return 0;
 }

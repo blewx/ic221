@@ -1,0 +1,30 @@
+WC                                      
+
+NAME
+    wc - print newline, word, and char counts for each file
+
+SYNOPSIS
+      wc [OPTION]... [FILE]...
+      stdin... wc
+
+DESCRIPTION
+      Print newlines, word and char counts for each FILE, and a total
+      line if more than one FILE is specified.
+
+      With no FILE, read standard input
+
+      The options that may be used to select which counts are printed
+      are:
+
+      -c
+          prints the char counts
+
+      -l
+          print the newline counts
+
+      -w
+          print the word counts
+
+AUTHOR
+      Written by Brendan Lewis 
+
