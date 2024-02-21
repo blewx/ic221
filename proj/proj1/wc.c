@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
         c_selected = 1;
       }
       else{
-        fprintf(stderr, "ERROR unknown option '%s' \n", argv[i]);
+        fprintf(stderr, "ERROR: unknown option '%s'\n", argv[i]);
         return 2;
       }
       only_one = 0;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
     else{
       fopen(argv[i], "r");
       if(access(argv[i],F_OK) == -1){
-        fprintf(stderr, "ERROR file '%s' cannot be opened\n", argv[i]);
+        fprintf(stderr, "ERROR: file %s cannot be opened\n", argv[i]);
         badfile = 1;
       }
       else{
@@ -69,11 +69,12 @@ int main(int argc, char *argv[]){
     int current_chars = 0;
     int current_lines = 0;
     int current_words = 0;
-    int previous_char_is_whitespace = 0;
+    int previous_char_is_whitespace = 1; // Assume first char is a white space
     int current_char = 0;
     while((temp = fgetc(fp)) != EOF){
       current_chars++;
-      if((current_char = isspace(temp))  != 0 && previous_char_is_whitespace == 0 )
+      current_char = isspace(temp);
+      if(!previous_char_is_whitespace && isspace(temp))
         current_words++;
       if(temp == '\n')
         current_lines++;
@@ -84,22 +85,22 @@ int main(int argc, char *argv[]){
     total_lines += current_lines;
     //Lines to print
     if(argc == 1 || (argv[i][0] == '+')){
-      printf("-stdin- ");
+      printf("-stdin-");
     }
     else{
-      printf("%s ", argv[i]);
+      printf("%s", argv[i]);
     }
     if(only_one){
-      printf("%d %d %d", current_lines, current_words, current_chars);
+      printf(" %d %d %d", current_lines, current_words, current_chars);
     }
     if(l_selected){
-      printf("%d ", current_lines);
+      printf(" %d", current_lines);
     }
     if(w_selected){
-      printf("%d ", current_words);
+      printf(" %d", current_words);
     }
     if(c_selected){
-      printf("%d ", current_chars);
+      printf(" %d", current_chars);
     }
     printf("\n");
 
@@ -107,18 +108,18 @@ int main(int argc, char *argv[]){
   
   if(total_files >= 2){
     //Print the total words and chars
-    printf("total ");      
+    printf("total");      
     if(only_one){
-      printf("%d %d %d", total_lines, total_words, total_chars);
+      printf(" %d %d %d", total_lines, total_words, total_chars);
     }
     if(l_selected){
-      printf("%d ", total_lines);
+      printf(" %d", total_lines);
     }
     if(w_selected){
-      printf("%d ", total_words);
+      printf(" %d", total_words);
     }
     if(c_selected){
-      printf("%d ", total_chars);
+      printf(" %d", total_chars);
     }
     printf("\n"); 
   }
